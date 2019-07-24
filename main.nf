@@ -30,11 +30,12 @@ if(!params.hisat2_index){
         file fasta from ch_fasta_for_hisat_index
 
         output:
-        set val("${fasta.baseName}.hisat2_index"), file("${fasta.baseName}.*.ht2*") into hs2_indices
+        set val("hisat2_index/${fasta.baseName}.hisat2_index"), file("hisat2_index") into hs2_indices
 
         script:
         """
-        hisat2-build -p ${task.cpus} $fasta ${fasta.baseName}.hisat2_index
+        mkdir hisat2_index
+        hisat2-build -p ${task.cpus} $fasta hisat2_index/${fasta.baseName}.hisat2_index
         """
     }
 }
